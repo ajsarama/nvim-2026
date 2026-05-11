@@ -18,12 +18,12 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/olical/conjure",
-	"https://github.com/guns/vim-sexp",
-	"https://github.com/tpope/vim-repeat",
-	"https://github.com/tpope/vim-sexp-mappings-for-regular-people",
 	"https://github.com/hiphish/rainbow-delimiters.nvim",
-	"https://github.com/neanias/everforest-nvim"
+	"https://github.com/neanias/everforest-nvim",
+	"https://github.com/folke/lazydev.nvim"
 })
+
+require('lazydev').setup({})
 
 vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter",
@@ -32,9 +32,9 @@ vim.pack.add({
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = function()
-        vim.api.nvim_set_hl(0, "@string.special.symbol.clojure", { link = "Red" })
-    end,
+	callback = function()
+		vim.api.nvim_set_hl(0, "@string.special.symbol.clojure", { link = "Red" })
+	end,
 })
 
 require("everforest").setup({})
@@ -133,3 +133,9 @@ vim.keymap.set('n', 'gq', vim.lsp.buf.format, { noremap = true })
 
 vim.g["conjure#log#hud#enabled"] = false
 vim.g["conjure#mapping#doc_word"] = false
+
+vim.api.nvim_create_user_command("GetToplevel",
+	function(_)
+		require("lemming").get_toplevel()
+	end,
+	{ desc = "My epic command." })
